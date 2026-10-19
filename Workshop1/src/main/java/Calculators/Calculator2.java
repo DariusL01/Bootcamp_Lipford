@@ -23,6 +23,7 @@ public class Calculator2 {
         double fv = p * Math.pow(1 + (r / d), n);
 
         System.out.printf("Total interest earned: %.2f%n", fv - p);
+        System.out.printf("Future value: %.2f%n", fv);
 
         scanner.close();
 
