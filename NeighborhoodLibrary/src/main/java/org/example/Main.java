@@ -59,9 +59,13 @@ public class Main {
                         }
 
                     }
-                    System.out.println("Select a book by its ID number or press X to exit to main menu.");
+                    System.out.println("Select a book by its ID number or press 0 to exit to main menu.");
                     int checkOutReply = scanner.nextInt();
                     scanner.nextLine(); // consume leftover newline
+                    if(checkOutReply == 0){
+                        break;
+                    }
+
 
                     boolean foundBook = false;
 
@@ -72,8 +76,7 @@ public class Main {
                             System.out.println("Enter your name: ");
                             String checkedOutBy = scanner.nextLine();
 
-                            books[i].setIsCheckedOut(true); //puts book in corresponding check in/out spot
-                            books[i].setCheckedOutTo(checkedOutBy);
+                            books[i].checkOut(checkedOutBy);
 
                             System.out.println(
                                     books[i].getTitle() + " checked out successfully."
@@ -98,9 +101,7 @@ public class Main {
                         if (books[i].getIsCheckedOut()) {
                             System.out.println("Title: " + books[i].getTitle()
                                     + ", ID: " + books[i].getId()
-                                    + ", ISBN: " + books[i].getIsbn()
-                                    + ", Checked out by: "
-                                    + books[i].getCheckedOutTo());
+                                    + ", ISBN: " + books[i].getIsbn());
                         }
                     }
 
@@ -120,8 +121,7 @@ public class Main {
                         if (books[i].getId() == checkInId &&
                                 books[i].getIsCheckedOut()) {
 
-                            books[i].setIsCheckedOut(false); //puts book in corresponding check in/out spot
-                            books[i].setCheckedOutTo("");
+                            books[i].checkIn();
 
                             System.out.println(
                                     books[i].getTitle()
