@@ -1,0 +1,5 @@
+My Account Ledger introduces a pre-paid shipping company, Potara Express, that allows you to make deposits, payments, and search through shipping transactions. When making a deposit or payment, you will always be prompted to enter the date in the yyyy-mm-dd format, to enter the time in the hh:mm:ss format, to enter the description which will include the shipping method and item name, to enter the shipping vendor, and the amount of the shipment. After launching the Ledger you can view all shipping transactions, deposits only, payments only, and the reports. 
+The Reports Menu gives you a broader view of transactions which include; month to date, previous month, year to date, previous year, search by vendor, and a custom search option.  The custom search option lets you search between time frames, but you can also click enter to skip the time frame search and search for transactions by description, vendor name, or amount. You will be able to return to the Ledger Menu by pressing  ‘0’, return to the Main Menu by pressing  ‘H’, or exit the program entirely by pressing ‘X’.
+ Enjoy exploring Potara Express!
+Account Ledger - README
+
