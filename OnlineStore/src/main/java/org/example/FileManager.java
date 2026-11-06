@@ -27,7 +27,6 @@ public class FileManager {
 
                 Product product = new Product(sKU, item, price, department);
 
-                System.out.println(row);
 
                 productList.add(product);
             }
