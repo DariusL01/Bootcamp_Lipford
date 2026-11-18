@@ -27,41 +27,25 @@ public class Vehicle {
         return vin;
     }
 
-    public void setVin(int vin) {
-        this.vin = vin;
-    }
 
     public int getYear() {
         return year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
 
     public String getMake() {
         return make;
-    }
-
-    public void setMake(String make) {
-        this.make = make;
     }
 
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
 
     public String getVehicleType() {
         return vehicleType;
     }
 
-    public void setVehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
-    }
 
     public String getColor() {
         return color;
