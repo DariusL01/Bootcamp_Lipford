@@ -41,21 +41,31 @@ public class DealershipFileManager {
         return vehicleList;
     }
 
-    public static void writeVehicle(Vehicle vehicle) {
-        try{
-            FileWriter fileWriter = new FileWriter("src/main/resources/slinventory.csv", true);
+    public static void saveDealership(Dealership dealership) {
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/resouces/slinventory.csv");
             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
 
-            String line = String.format("%f|%f|%s|%s|%s|%s|%f|%.2f", vehicle.getVin(), vehicle.getYear(), vehicle.getMake(), vehicle.getModel(), vehicle.getColor(), vehicle.getOdometer(), vehicle.getPrice());
-
+            bufferedWriter.write(dealership.getName() + "|" + dealership.getAddress() + "|" + dealership.getPhone());
             bufferedWriter.newLine();
-            bufferedWriter.write(line);
 
-            System.out.println("Write complete!");
+            for (Vehicle vehicle : dealership.getInventoryList()) {
+                String line = String.format("%d|%d|%s|%s|%s|%s|%d|%.2f",
+                        vehicle.getVin(),
+                        vehicle.getYear(),
+                        vehicle.getMake(),
+                        vehicle.getModel(),
+                        vehicle.getVehicleType(),
+                        vehicle.getColor(),
+                        vehicle.getOdometer(),
+                        vehicle.getPrice());
+                bufferedWriter.write(line);
+                bufferedWriter.newLine();
+            }
+            bufferedWriter.close();
+            System.out.println("Inventory saved!");
         } catch (IOException ex) {
             System.out.println("Could not write to the file.");
-        } catch (Exception ex) {
-            System.out.println("Error when handling the data.");
         }
     }
 }

@@ -85,7 +85,7 @@ public class UserInterface {
                     processRemoveVehicleRequest();
                     break;
 
-                case 0:
+                case 99:
                     running = false;
                     System.out.println("Goodbye!");
                     break;
@@ -184,8 +184,6 @@ public class UserInterface {
 
     public void processGetByVehicleTypeRequest() {
 
-        scanner.nextLine();
-
         System.out.print("Vehicle Type: ");
         String type = scanner.nextLine();
 
@@ -246,7 +244,7 @@ public class UserInterface {
 
         dealership.getInventoryList().add(vehicle);
 
-        DealershipFileManager.writeVehicle(vehicle);
+        DealershipFileManager.saveDealership(dealership);
 
         System.out.println("Vehicle added.");
     }
@@ -270,6 +268,7 @@ public class UserInterface {
         if (vehicleToRemove != null) {
 
             dealership.getInventoryList().remove(vehicleToRemove);
+            DealershipFileManager.saveDealership(dealership);
 
             System.out.println("Vehicle removed from inventory.");
 
