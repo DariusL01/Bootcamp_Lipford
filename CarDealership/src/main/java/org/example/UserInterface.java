@@ -1,9 +1,11 @@
 package org.example;
 
+import java.lang.classfile.attribute.SourceFileAttribute;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.time.LocalDate;
 
 public class UserInterface {
 
@@ -40,7 +42,8 @@ public class UserInterface {
             System.out.println("7) List ALL vehicles");
             System.out.println("8) Add vehicle");
             System.out.println("9) Remove vehicle");
-            System.out.println("0) Exit");
+            System.out.println("10) Sell/Lease a vehicle");
+            System.out.println("99) Exit");
 
             System.out.print("Select Option: ");
 
@@ -83,6 +86,10 @@ public class UserInterface {
 
                 case 9:
                     processRemoveVehicleRequest();
+                    break;
+
+                case 10:
+                    processSellOrLeaseRequest();
                     break;
 
                 case 99:
@@ -276,6 +283,67 @@ public class UserInterface {
 
             System.out.println("Vehicle not found.");
         }
+    }
+
+    public void processSellOrLeaseRequest() {
+
+        System.out.println("Enter VIN of the vehicle: ");
+        int vin = scanner.nextInt();
+        scanner.nextLine();
+
+        Vehicle vehicle = null;
+        for (Vehicle v : dealership.getInventoryList()) {
+            if (v.getVin() == vin) {
+                vehicle = v;
+                break;
+            }
+        }
+        if (vehicle == null) {
+            System.out.println("Vehicle not found.");
+            return;
+        }
+
+        System.out.println("Customer Name: ");
+        String name = scanner.nextLine();
+
+        System.out.println("Customer Email: ");
+        String email = scanner.nextLine();
+
+        //Date as a string formatted like 20261122
+        String date = LocalDate.now().toString().replace("-", "");
+
+        System.out.println("Is this a (S)ale or (L)ease? ");
+        String choice = scanner.nextLine();
+
+        Contract contract = null;
+
+        if (choice.equalsIgnoreCase("S")) {
+            System.out.println("Do you want to finance? (yes/no): ");
+            String financeAnswer = scanner.nextLine();
+            boolean finance = financeAnswer.equalsIgnoreCase("yes");
+
+            contract = new SalesContract(date, name, email, vehicle, finance);
+
+        } else if (choice.equalsIgnoreCase("L")) {
+            //Can't lease a vehicle over 3 years old
+            if (LocalDate.now().getYear() - vehicle.getYear() > 3) {
+                System.out.println("Sorry, vehicles over 3 years old can't be leased.");
+                return;
+            }
+
+            contract = new LeaseContract(date, name, email, vehicle);
+
+        } else {
+            System.out.println("Invalid choice.");
+            return;
+        }
+        System.out.printf("Total Price: $%.2f%n", contract.getTotalPrice());
+        System.out.printf("Monthly Payment: $%.2f%n", contract.getMonthlyPayment());
+
+        //Update inventory file
+        ContractDataManager.saveContract(contract);
+        dealership.getInventoryList().remove(vehicle);
+        DealershipFileManager.saveDealership(dealership);
     }
 
     private void displayVehicle(Vehicle vehicle) {
